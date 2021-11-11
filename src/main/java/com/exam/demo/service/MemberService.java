@@ -3,7 +3,9 @@ package com.exam.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.exam.demo.repository.MemberRepository;
+import com.exam.demo.util.Ut;
 import com.exam.demo.vo.Member;
+import com.exam.demo.vo.ResultData;
 
 @Service
 public class MemberService {
@@ -14,22 +16,25 @@ public class MemberService {
 		this.memberRepository = memberRepository;
 	}
 
-	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+			String email) {
 		Member oldMember = getMemberByLoginId(loginId);
 
 		if (oldMember != null) {
-			return -1;
+			return ResultData.from("F-7", Ut.f("'%s' (은)는 사용중인 아이디입니다.", loginId));
 		}
 
 		oldMember = getMemberByNameAndEmail(name, email);
 
 		if (oldMember != null) {
-			return -2;
+			return ResultData.from("F-8", Ut.f("'%s'와 '%s' (은)는 이미 가입된 회원의 이름과 이메일 입니다.", loginId));
 		}
 
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
-		return memberRepository.getLastInsertId();
+		int id = memberRepository.getLastInsertId();
+
+		return ResultData.from("S-1", "회원가입이 완료되었습니다.", id);
 	}
 
 	private Member getMemberByNameAndEmail(String name, String email) {
