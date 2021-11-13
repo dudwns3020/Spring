@@ -21,20 +21,20 @@ public class MemberService {
 		Member oldMember = getMemberByLoginId(loginId);
 
 		if (oldMember != null) {
-			return ResultData.from("F-7", Ut.f("'%s' (은)는 사용중인 아이디입니다.", loginId));
+			return ResultData.from("F-7", Ut.f("해당 로그인 아이디(%s)는 이미 사용중입니다.", loginId));
 		}
 
 		oldMember = getMemberByNameAndEmail(name, email);
 
 		if (oldMember != null) {
-			return ResultData.from("F-8", Ut.f("'%s'와 '%s' (은)는 이미 가입된 회원의 이름과 이메일 입니다.", loginId));
+			return ResultData.from("F-8", Ut.f("(%s)와 (%s)(은)는 이미 가입 된 회원의 이름과 이메일 입니다.", name, email));
 		}
 
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
 		int id = memberRepository.getLastInsertId();
 
-		return ResultData.from("S-1", "회원가입이 완료되었습니다.", id);
+		return ResultData.from("S-1", "회원가입이 완료되었습니다.", "id", id);
 	}
 
 	private Member getMemberByNameAndEmail(String name, String email) {
@@ -50,4 +50,5 @@ public class MemberService {
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
+
 }
