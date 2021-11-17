@@ -46,30 +46,27 @@ public class UsrArticleController {
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
 		int id = writeArticleRd.getData1();
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 
 		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model) {
-		List<Article> articles = articleService.getArticles();
+		List<Article> articles = articleService.getForPrintArticles();
 
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
 	}
+	
+	@RequestMapping("/usr/article/detail")
+	public String showDetail(Model model ,int id) {
+		Article article = articleService.getForPrintArticle(id);
 
-	@RequestMapping("/usr/article/getArticle")
-	@ResponseBody
-	public ResultData<Article> getArticle(int id) {
-		Article article = articleService.getArticle(id);
-
-		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
-		}
-
-		return ResultData.from("S-1", Ut.f("%d번 게시물 입니다.", id), "articles", article);
+		model.addAttribute("article", article);
+		
+		return "usr/article/detail";
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -88,7 +85,7 @@ public class UsrArticleController {
 			return ResultData.from("F-A", "로그인 후 이용해주세요");
 		}
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
@@ -117,7 +114,7 @@ public class UsrArticleController {
 			return ResultData.from("F-A", "로그인 후 이용해주세요");
 		}
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다.", id));

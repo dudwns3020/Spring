@@ -12,10 +12,16 @@
 		`body` = #{body}
 	</insert>
 
-	<select id="getArticle" resultType="com.exam.demo.vo.Article">
-		SELECT *
-		FROM article
-		WHERE id
+	<select id="getForPrintArticle" resultType="com.exam.demo.vo.Article">
+		SELECT A.*,
+		M.nickname AS
+		extra_writerName
+		FROM article AS A
+		LEFT JOIN `member` AS M
+		ON A.memberId =
+		M.id
+		WHERE
+		A.id
 		= #{id}
 	</select>
 
@@ -39,8 +45,14 @@
 		WHERE id = #{id}
 	</update>
 
-	<select id="getArticles" resultType="com.exam.demo.vo.Article">
-		SELECT * FROM article
+	<select id="getForPrintArticles" resultType="com.exam.demo.vo.Article">
+		SELECT A.*,
+		M.nickname AS
+		extra_writerName
+		FROM article AS A
+		LEFT JOIN `member` AS M
+		ON A.memberId =
+		M.id
 		ORDER
 		BY id DESC
 	</select>
