@@ -40,9 +40,10 @@
 		<div class="btns">
 			<button type="button" onclick="history.back();">뒤로가기</button>
 			<a onclick="return false;" href="../article/modify?id=${article.id }">게시물수정</a>
-			<c:if test="${article.extra_actorCanDelete }">
-				<a onclick="confrim('게시물을 삭제하겠습니까?'); {return false;}"
-					href="../article/doDelete?id=${article.id }">게시물삭제</a>
+			<c:if test="${ article.extra_actorCanDelete }">
+				<a
+					onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"
+					href="../article/doDelete?id=${article.id}">게시물 삭제</a>
 			</c:if>
 		</div>
 	</div>
