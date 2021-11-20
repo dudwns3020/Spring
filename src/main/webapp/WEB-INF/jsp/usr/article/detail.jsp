@@ -27,23 +27,31 @@
 						<td>${article.updateDate.substring(2,16) }</td>
 					</tr>
 					<tr>
+						<th>작성자</th>
+						<td>${article.extra_writerName }</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td>${article.id }</td>
 					</tr>
 					<tr>
-						<th>작성자</th>
-						<td>${article.extra_writerName }</td>
+						<th>내용</th>
+						<td>${article.body}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div class="btns">
-			<button type="button" onclick="history.back();">뒤로가기</button>
-			<a onclick="return false;" href="../article/modify?id=${article.id }">게시물수정</a>
-			<c:if test="${ article.extra_actorCanDelete }">
-				<a
+
+		<div class="btns mt-2">
+			<button class="btn btn-outline" type="button"
+				onclick="history.back();">뒤로가기</button>
+			<a href="../article/modify?id=${article.id}" class="btn btn-outline">게시물
+				수정</a>
+			<c:if test="${ article.extra__actorCanDelete }">
+				<a class="btn btn-outline"
 					onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"
-					href="../article/doDelete?id=${article.id}">게시물 삭제</a>
+					href="../article/doDelete?id=${article.id}"
+					class="btn-text-link ml-2">게시물 삭제</a>
 			</c:if>
 		</div>
 	</div>
