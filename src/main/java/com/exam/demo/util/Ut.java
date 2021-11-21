@@ -37,7 +37,7 @@ public class Ut {
 					history.back();
 				</script>
 				""";
-		
+
 		return Ut.f(script, msg);
 	}
 
@@ -57,7 +57,7 @@ public class Ut {
 					location.replace('%s');
 				</script>
 				""";
-		
+
 		return Ut.f(script, msg, url);
 	}
 
