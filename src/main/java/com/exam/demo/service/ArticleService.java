@@ -29,7 +29,7 @@ public class ArticleService {
 
 		List<Article> articles = articleRepository.getForPrintArticles();
 
-		for(Article article : articles) {
+		for (Article article : articles) {
 			updatePrintForData(actorId, article);
 		}
 
@@ -47,15 +47,28 @@ public class ArticleService {
 
 	private void updatePrintForData(int actorId, Article article) {
 
-		if(article == null) {
+		if (article == null) {
 			return;
 		}
 
+		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
+		article.setExtra_actorCanDelete(actorCanDeleteRd.isSuccess());
 
-		if(article.getMemberId() == actorId) {
-			article.setExtra_actorCanDelete(true);
+		ResultData actorCanModifyRd = actorCanModify(actorId, article);
+		article.setExtra_actorCanModify(actorCanModifyRd.isSuccess());
+
+	}
+
+	private ResultData actorCanDelete(int actorId, Article article) {
+		if (article == null) {
+			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
 		}
 
+		if (article.getMemberId() != actorId) {
+			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다.");
+		}
+
+		return ResultData.from("S-1", "해당 게시물 삭제가 가능합니다");
 	}
 
 	public void deleteArticle(int id) {
