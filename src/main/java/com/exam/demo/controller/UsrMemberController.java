@@ -1,7 +1,6 @@
 package com.exam.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,12 +68,12 @@ public class UsrMemberController {
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (!rq.isLogined()) {
-			return Ut.jsHistoryBack("이미 로그아웃 상태입니다.");
+			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
 		}
 
 		rq.logout();
 
-		return Ut.jsReplace("로그아웃 되었습니다.", "/");
+		return rq.jsReplace("로그아웃 되었습니다.", "/");
 	}
 
 	@RequestMapping("/usr/member/login")
@@ -93,16 +92,16 @@ public class UsrMemberController {
 		}
 
 		if (Ut.empty(loginId)) {
-			return Ut.jsHistoryBack("loginId을(를) 입력해주세요.");
+			return rq.jsHistoryBack("loginId을(를) 입력해주세요.");
 		}
 		if (Ut.empty(loginPw)) {
-			return Ut.jsHistoryBack("loginPw을(를) 입력해주세요.");
+			return rq.jsHistoryBack("loginPw을(를) 입력해주세요.");
 		}
 
 		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
-			return Ut.jsHistoryBack("존재하지 않는 로그인아이디 입니다.");
+			return rq.jsHistoryBack("존재하지 않는 로그인아이디 입니다.");
 		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {

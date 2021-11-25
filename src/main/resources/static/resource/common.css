@@ -13,13 +13,25 @@ html>body {
 }
 
 /* 라이브러리 */
-.table-box-type-1 > table {
-  width:100%;
-  border-collapse: collapse;
+.table-box-type-1>table {
+	width: 100%;
+	border-collapse: collapse;
 }
 
-.table-box-type-1 > table th,
-.table-box-type-1 > table td {
-  border:1px solid black;
-  padding:10px;
+.table-box-type-1>table th, .table-box-type-1>table td {
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.btn-text-link {
+	color: skyblue;
+}
+
+.btn-text-link:hover {
+	text-decoration: underline;
+}
+
+/*커스텀*/
+body {
+	min-width: 800px;
 }
