@@ -15,21 +15,22 @@ public interface ArticleRepository {
 
 	@Select("""
 			SELECT A.*,
-			M.nickname AS extra__writerName
+			M.nickname AS extra_writerName
 			FROM article AS A
 			LEFT JOIN member AS M
 			ON A.memberId = M.id
 			WHERE 1
 			AND A.id = #{id}
 			""")
-	
 	public Article getForPrintArticle(@Param("id") int id);
 
 	public void deleteArticle(@Param("id") int id);
 
 	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
 
-	public List<Article> getForPrintArticles();
+	public List<Article> getForPrintArticles(@Param("boardId") int boardId);
 
 	public int getLastInsertId();
+
+	public int getArticlesCount(@Param("boardId") int boardId);
 }
