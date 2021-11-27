@@ -10,11 +10,15 @@ import com.exam.demo.vo.Rq;
 
 @Component
 public class NeedLoginInterceptor implements HandlerInterceptor {
+	private Rq rq;
+
+	public NeedLoginInterceptor(Rq rq) {
+		this.rq = rq;
+	}
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
-		Rq rq = (Rq) request.getAttribute("rq");
 
 		if (!rq.isLogined()) {
 
