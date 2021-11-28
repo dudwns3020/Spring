@@ -43,6 +43,34 @@
 				</tbody>
 			</table>
 		</div>
+
+		<div class="page-menu">
+			<div class="btn-group justify-center">
+				<c:set var="pageMemuArmLen" value="4" />
+				<c:set var="startPage"
+					value="${page - pageMemuArmLen >= 1 ? page - pageMemuArmLen : 1}" />
+				<c:set var="endPage"
+					value="${page + pageMemuArmLen <= pagesCount ? page + pageMemuArmLen : pagesCount}" />
+
+				<c:if test="${startPage > 1}">
+					<a class="btn btn-sm" href="?page=1&boardId=${boardId }">1</a>
+					<c:if test="${startPage > 2}">
+						<a class="btn btn-sm btn-disabled">...</a>
+					</c:if>
+				</c:if>
+				<c:forEach begin="${startPage }" end="${endPage }" var="i">
+					<a class="btn btn-sm ${page == i ? 'btn-active' : ''}"
+						href="?page=${i}&boardId=${boardId }">${i}</a>
+				</c:forEach>
+				<c:if test="${endPage < pagesCount}">
+					<c:if test="${endPage < pagesCount - 1}">
+						<a class="btn btn-sm btn-disabled">...</a>
+					</c:if>
+					<a class="btn btn-sm" href="?page=${pagesCount }&boardId=${boardId }">${pagesCount }</a>
+				</c:if>
+
+			</div>
+		</div>
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>

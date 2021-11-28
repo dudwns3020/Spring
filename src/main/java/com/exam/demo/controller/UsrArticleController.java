@@ -61,7 +61,8 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page) {
+	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "1") int page) {
 
 		Board board = boardService.getBoardById(boardId);
 
@@ -70,13 +71,18 @@ public class UsrArticleController {
 		}
 
 		int articlesCount = articleService.getArticlesCount(boardId);
-		
-		
+
 		int itemsCountInApage = 10;
 
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInApage, page);
+		int pagesCount = (int) Math.ceil(articlesCount / itemsCountInApage);
+
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInApage,
+				page);
 
 		model.addAttribute("board", board);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
+		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
