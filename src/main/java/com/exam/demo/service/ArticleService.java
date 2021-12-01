@@ -105,7 +105,7 @@ public class ArticleService {
 		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 
-	public ResultData increaseHitCount(int id) {
+	public ResultData<Integer> increaseHitCount(int id) {
 		int affectedRowsCount = articleRepository.increaseHitCount(id);
 		if (affectedRowsCount == 0) {
 			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다.", "affectedRowsCount", affectedRowsCount);
