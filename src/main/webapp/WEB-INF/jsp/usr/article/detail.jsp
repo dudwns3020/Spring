@@ -13,11 +13,18 @@
 
 <script>
 	function ArticleDetail__increaseHitCount() {
+		const localStorageKey = 'article_' + params.id + '_viewDone';
+		alert(localStorageKey);
+		if (localStorage.getItem(localStorageKey)) {
+			return;
+		}
+		localStorage.setItem(localStorageKey, true);
+
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
 		}, function(data) {
-			$('.article-detail__hit-count').empty().html(data.data1);
+			$('.article-detail_hit-count').empty().html(data.data1);
 		}, 'json');
 	}
 	$(function() {
