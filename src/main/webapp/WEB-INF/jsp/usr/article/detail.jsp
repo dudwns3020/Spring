@@ -13,22 +13,24 @@
 
 <script>
 	function ArticleDetail__increaseHitCount() {
-		const localStorageKey = 'article_' + params.id + '_viewDone';
+		const localStorageKey = 'article__' + params.id + '__viewDone';
 		alert(localStorageKey);
 		if (localStorage.getItem(localStorageKey)) {
 			return;
 		}
 		localStorage.setItem(localStorageKey, true);
-
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
 		}, function(data) {
-			$('.article-detail_hit-count').empty().html(data.data1);
+			$('.article-detail__hit-count').empty().html(data.data1);
 		}, 'json');
 	}
 	$(function() {
-		setTimeout(ArticleDetail__increaseHitCount, 3000);
+		//실전
+		//    ArticleDetail__increaseHitCount();
+		//임시
+		setTimeout(ArticleDetail__increaseHitCount, 500);
 	})
 </script>
 
@@ -42,23 +44,35 @@
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td>${article.id }</td>
+						<td>${article.id}</td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
-						<td>${article.forPrintType2RegDate }</td>
+						<td>${article.forPrintType2RegDate}</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td>${article.forPrintType2updateDate }</td>
+						<td>${article.forPrintType2UpdateDate}</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>${article.extra_writerName }</td>
+						<td>${article.extra__writerName}</td>
+					</tr>
+					<tr>
+						<th>조회수</th>
+						<td>
+							<span class="badge badge-ghost">${article.hitCount }</span>
+						</td>
+					</tr>
+					<tr>
+						<th>추천</th>
+						<td>
+							<span class="badge badge-ghost">${article.extra__goodReactionPoint }</span>
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td>${article.title }</td>
+						<td>${article.title}</td>
 					</tr>
 					<tr>
 						<th>내용</th>
@@ -73,7 +87,7 @@
 				onclick="history.back();">뒤로가기</button>
 			<a href="../article/modify?id=${article.id}" class="btn btn-outline">게시물
 				수정</a>
-			<c:if test="${ article.extra_actorCanDelete }">
+			<c:if test="${ article.extra__actorCanDelete }">
 				<a class="btn btn-outline"
 					onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"
 					href="../article/doDelete?id=${article.id}"

@@ -15,12 +15,14 @@ public class Article {
 	private String title;
 	private String body;
 	private int hitCount;
-	private String extra_writerName;
-	private boolean extra_actorCanModify;
-	private boolean extra_actorCanDelete;
-	private int extra_goodReactionPoint;
-	private int extra_badReactionPoint;
-	private int extra_sumReactionPoint;
+
+	private int extra__goodReactionPoint;
+	private int extra__badReactionPoint;
+	private int extra__sumReactionPoint;
+
+	private String extra__writerName;
+	private boolean extra__actorCanModify;
+	private boolean extra__actorCanDelete;
 
 	public String getForPrintType1RegDate() {
 		return regDate.substring(2, 16).replace(" ", "<br>");
