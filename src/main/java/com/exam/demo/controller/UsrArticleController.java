@@ -97,6 +97,10 @@ public class UsrArticleController {
 
 		model.addAttribute("article", article);
 
+		boolean actorCanMakeReactionPoint = articleService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), id);
+
+		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
+
 		return "usr/article/detail";
 	}
 
@@ -112,9 +116,9 @@ public class UsrArticleController {
 
 		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "hitCount",
 				articleService.getArticleHitCount(id));
-		
+
 		rd.setData2("id", id);
-		
+
 		return rd;
 	}
 
