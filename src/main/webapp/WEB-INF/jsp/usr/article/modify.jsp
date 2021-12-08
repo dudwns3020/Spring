@@ -31,13 +31,13 @@
 					<tr>
 						<th>수정날짜</th>
 						<td>
-							<div>${article.forPrintType2updateDate}</div>
+							<div>${article.forPrintType2UpdateDate}</div>
 						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
 						<td>
-							<div>${article.extra_writerName}</div>
+							<div>${article.extra__writerName}</div>
 						</td>
 					</tr>
 					<tr>
@@ -49,14 +49,15 @@
 					<tr>
 						<th>추천</th>
 						<td>
-							<span class="badge badge-ghost">${article.extra_goodReactionPoint }</span>
+							<span class="badge badge-ghost">${article.goodReactionPoint }</span>
 						</td>
 					</tr>
+
 					<tr>
 						<th>제목</th>
 						<td>
-							<input class="w-96 input input-bordered" name="title" type="text"
-								value="${article.title}" />
+							<input class="w-96 input input-bordered" " name="title"
+								type="text" value="${article.title}" />
 						</td>
 					</tr>
 					<tr>
@@ -70,24 +71,19 @@
 						<th>수정</th>
 						<td>
 							<button type="submit" class="btn btn-ghost btn-outline">수정</button>
-							<button type="button" class="btn btn-ghost btn-outline"
-								onclick="history.back();">뒤로가기</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</form>
-
 		<div class="btns">
 			<button class="btn btn-outline" type="button"
 				onclick="history.back();">뒤로가기</button>
-			<c:if test="${ article.extra_actorCanModify }">
-
+			<c:if test="${ article.extra__actorCanModify }">
 				<a href="../article/modify?id=${article.id}" class="btn btn-outline">게시물
 					수정</a>
-
 			</c:if>
-			<c:if test="${ article.extra_actorCanDelete }">
+			<c:if test="${ article.extra__actorCanDelete }">
 				<a
 					onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }"
 					href="../article/doDelete?id=${article.id}" class="btn btn-outline">게시물

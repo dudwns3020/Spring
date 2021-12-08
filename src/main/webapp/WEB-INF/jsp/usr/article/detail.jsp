@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <c:set var="pageTitle" value="게시물 내용" />
-
 <%@ include file="../common/head.jspf"%>
-
 <script>
 	const params = {};
 	params.id = parseInt('${param.id}');
 </script>
-
 <script>
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__viewDone';
@@ -30,7 +26,6 @@
 		setTimeout(ArticleDetail__increaseHitCount, 500);
 	})
 </script>
-
 <section class="mt-5">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
@@ -65,7 +60,7 @@
 						<th>추천</th>
 						<td>
 							<div class="flex items-center">
-								<span class="badge badge-ghost">${article.extra__goodReactionPoint }</span>
+								<span class="badge badge-ghost">${article.goodReactionPoint }</span>
 								<span>&nbsp;</span>
 								<c:if test="${actorCanMakeReactionPoint }">
 									<button class="btn btn-xs">좋아요</button>
