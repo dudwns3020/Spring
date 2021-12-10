@@ -19,12 +19,22 @@ public class MyWebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		
+		InterceptorRegistration ir;
+		
+		ir = registry.addInterceptor(beforeActionInterceptor);
+		ir.addPathPatterns("/**");
+		ir.addPathPatterns("/favicon.ico");
+		ir.addPathPatterns("/resource/**");
+		ir.addPathPatterns("error");
 
-		InterceptorRegistration ir = registry.addInterceptor(beforeActionInterceptor);
-		ir.addPathPatterns("/**").excludePathPatterns("/resource/**");
-
-		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/doAdd")
-				.addPathPatterns("/usr/article/doDelete").addPathPatterns("/usr/article/modify")
-				.addPathPatterns("/usr/article/doModify");
+		ir = registry.addInterceptor(needLoginInterceptor);
+		ir.addPathPatterns("/usr/article/write");
+		ir.addPathPatterns("/usr/article/doDelete");
+		ir.addPathPatterns("/usr/article/modify");
+		ir.addPathPatterns("/usr/article/doModify");
+		ir.addPathPatterns("/usr/article/doDelete");
+		ir.addPathPatterns("/usr/reactionPoint/doGoodReaction");
+		ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
 	}
 }
