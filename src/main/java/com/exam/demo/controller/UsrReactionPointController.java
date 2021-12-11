@@ -8,12 +8,13 @@ import com.exam.demo.service.ReactionPointService;
 import com.exam.demo.vo.Rq;
 
 @Controller
-public class UsrReactionController {
+public class UsrReactionPointController {
 
 	private ReactionPointService reactionPointService;
 	private Rq rq;
 
-	public UsrReactionController(ReactionPointService reactionPointService, Rq rq) {
+	public UsrReactionPointController(ReactionPointService reactionPointService, Rq rq) {
+
 		this.reactionPointService = reactionPointService;
 		this.rq = rq;
 	}
@@ -30,7 +31,7 @@ public class UsrReactionController {
 
 		reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 
-		return rq.jsReplace("좋아요", replaceUri);
+		return rq.jsReplace("좋아요!", replaceUri);
 	}
 
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
@@ -45,6 +46,7 @@ public class UsrReactionController {
 
 		reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 
-		return rq.jsReplace("싫어요", replaceUri);
+		return rq.jsReplace("싫어요!", replaceUri);
 	}
+
 }

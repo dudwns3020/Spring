@@ -2,6 +2,7 @@
 DROP DATABASE IF EXISTS sbs_s_2021_10_t;
 CREATE DATABASE sbs_s_2021_10_t;
 USE sbs_s_2021_10_t;
+
 # 게시물 테이블 생성
 CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -10,22 +11,26 @@ CREATE TABLE article (
     title CHAR(100) NOT NULL,
     `body` TEXT NOT NULL
 );
+
 # 게시물 테스트 데이터 생성
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1';
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목2',
 `body` = '내용2';
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3';
+
 
 
 # 회원 테이블 생성
@@ -43,6 +48,7 @@ CREATE TABLE `member` (
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴여부(0=탈퇴전,1=탈퇴)',
     delDate DATETIME COMMENT '탈퇴날짜'
 );
+
 # 회원 테스트 데이터 생성(관리자 회원)
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -54,6 +60,7 @@ loginPw = 'admin',
 `nickname` = '관리자',
 cellphoneNo = '01012341234',
 email = 'abcdef@gmail.com';
+
 # 회원 테스트 데이터 생성(일반 회원)
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -64,6 +71,7 @@ loginPw = 'user1',
 `nickname` = '사용자1',
 cellphoneNo = '01043214321',
 email = 'fedcba@gmail.com';
+
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -73,8 +81,10 @@ loginPw = 'user2',
 `nickname` = '사용자2',
 cellphoneNo = '01098769876',
 email = 'zxcvbnm@gmail.com';
+
 # 게시물 테이블에 회원정보 추가
 ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
+
 # 기존 게시물의 작성자를 2번으로 수정
 UPDATE article
 SET memberId = 2
@@ -123,16 +133,6 @@ WHERE id IN (1,2);
 UPDATE article
 SET boardId = 2
 WHERE id IN (3,4);
-
-# 게시물 갯수 늘리기
-INSERT INTO article
-(
-    regDate, updateDate, memberId, boardId, title, `body`
-)
-SELECT NOW(), NOW(), FLOOR(RAND() * 3 + 1), FLOOR(RAND() * 2 + 1), CONCAT('제목_',RAND()), CONCAT('내용_',RAND())
-FROM article;
-
-SELECT FLOOR(RAND() * 2 + 1);
 
 #게시물 테이블에 hitCount 칼럼 추가
 ALTER TABLE article
@@ -218,6 +218,7 @@ ON A.id = RP_SUM.relId
 SET A.goodReactionPoint = RP_SUM.goodReactionPoint,
 A.badReactionPoint = RP_SUM.badReactionPoint
 
+
 # 게시물 별 좋아요 싫어요 총합
 SELECT A.*,
 IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
@@ -235,12 +236,15 @@ ON RP.relTypeCode = 'article'
 AND A.id = RP.relId
 GROUP BY A.id;
 
+
+
+##########
 SELECT IFNULL(SUM(RP.point),0) AS s
 FROM reactionPoint AS RP
 WHERE RP.relTypeCode = 'article'
 AND RP.relId = 1
 AND RP.memberId = 1
-
+			
 SELECT * FROM reactionPoint WHERE memberId = 2
 
 
@@ -254,15 +258,21 @@ FROM article;
 
 SELECT FLOOR(RAND() * 2 + 1);
 
+#######
+
 SHOW TABLES;
 
 DESC article;
+
 SELECT * 
 FROM article;
+
 SELECT * 
 FROM reactionPoint;
+
 SELECT * 
 FROM `member`;
+
 SELECT * 
 FROM `board`;
 
