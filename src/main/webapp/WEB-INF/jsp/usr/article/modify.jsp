@@ -56,7 +56,7 @@
 					<tr>
 						<th>제목</th>
 						<td>
-							<input class="w-96 input input-bordered" " name="title"
+							<input class="w-96 input input-bordered" name="title"
 								type="text" value="${article.title}" />
 						</td>
 					</tr>

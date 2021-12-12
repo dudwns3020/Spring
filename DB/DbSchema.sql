@@ -240,10 +240,10 @@ GROUP BY A.id;
 
 ##########
 SELECT IFNULL(SUM(RP.point),0) AS s
-FROM reactionPoint AS RP
-WHERE RP.relTypeCode = 'article'
-AND RP.relId = 1
-AND RP.memberId = 1
+			FROM reactionPoint AS RP
+			WHERE RP.relTypeCode = 'article'
+			AND RP.relId = 1
+			AND RP.memberId = 1
 			
 SELECT * FROM reactionPoint WHERE memberId = 2
 
