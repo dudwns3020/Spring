@@ -60,7 +60,7 @@ public class ReactionPointService {
 
 		switch (relTypeCode) {
 		case "article":
-			ArticleService.decreaseGoodReactionPoint(relId);
+			articleService.decreaseGoodReactionPoint(relId);
 			break;
 		}
 		return ResultData.from("S-1", "좋아요 취소");
@@ -71,7 +71,7 @@ public class ReactionPointService {
 
 		switch (relTypeCode) {
 		case "article":
-			ArticleService.decreaseBadReactionPoint(relId);
+			articleService.decreaseBadReactionPoint(relId);
 			break;
 		}
 		return ResultData.from("S-1", "싫어요 취소");
